@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from scrapy.linkextractors import LinkExtractor
 from buzz_scraper.items import BuzzScraperItem
 from HTMLParser import HTMLParser
-
 
 #HTML tag stripper to deal with item titles with embedded html like: "This is a <i>list</i> item"
 class MLStripper(HTMLParser):
@@ -40,7 +38,7 @@ class BuzzScraperSpider(scrapy.Spider):
         for post_item in post_items:
             no_html_tags = strip_tags(post_item)
 
-            #make sure post is item and is in english
+            #make sure post_item is item
             if any(char.isdigit() for char in no_html_tags):
                 sanitized_post_items.append(strip_tags(post_item))
 
