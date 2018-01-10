@@ -10,4 +10,3 @@ import scrapy
 class BuzzScraperItem(scrapy.Item):
     post_title = scrapy.Field()
     post_items = scrapy.Field()
-    pass

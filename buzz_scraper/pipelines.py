@@ -16,12 +16,9 @@ class MongoDBPipeline(object):
         self.collection = db[settings['MONGODB_COLLECTION']]
 
     def process_item(self, item, spider):
-	valid = True
-	for data in item:
-	    if not data:
-		valid = False
-		raise dropitem("missing {0}!".format(data))
+        for data in item:
+            if not data:
+                raise DropItem("missing {0}!".format(data))
 
-	if valid:
-	    self.collection.insert(dict(item))
-	return item
+        self.collection.insert(dict(item))
+        return item

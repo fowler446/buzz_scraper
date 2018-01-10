@@ -30,8 +30,8 @@ class BuzzScraperSpider(scrapy.Spider):
 
     def parse(self, response):
         item = BuzzScraperItem()
-        item['post_title'] = response.css("#post-title::text").extract_first()
-        post_items = response.css(".buzz_superlist_item h2.subbuzz_name").extract()
+        item['post_title'] = response.css('h1.buzz-title::text').extract_first().strip()
+        post_items = response.css(".buzz_superlist_item h2.subbuzz_name").extract() # TODO this selector is out of date
 
         #Strip html from post items
         sanitized_post_items = []
@@ -42,8 +42,8 @@ class BuzzScraperSpider(scrapy.Spider):
             if any(char.isdigit() for char in no_html_tags):
                 sanitized_post_items.append(strip_tags(post_item))
 
-        item['post_items'] =  sanitized_post_items
+        item['post_items'] = sanitized_post_items
 
-        if len(item['post_items']) > 0:
-            yield item
+        yield item
+
 
